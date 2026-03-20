@@ -1,14 +1,18 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 function App() {
 
   const [tarefa, setTarefa] = useState([])
   const [valor, setValor] = useState("")
 
+  const inputRef = useRef(null)
+
   function enviarTarefa(){
     setTarefa([...tarefa, valor])
 
     console.log(tarefa)
+    setValor("")
+    inputRef.current.focus()
   }
 
   return (
@@ -17,14 +21,16 @@ function App() {
       type="text" 
       placeholder="adicione tarefa"
       value={valor}
+      ref={inputRef}
       onChange={(e)=> setValor(e.target.value)}/>
 
-      <button onClick={enviarTarefa}>Adicionar atrefa</button>
+      <button onClick={enviarTarefa}>Adicionar tarefa</button>
+       
       {tarefa.map((tarefa, index) =>{
         return (
-           <ul>
+        <ul>
             <li key={index}>{tarefa}</li>
-           </ul>
+        </ul>
         )
       })}
     </>
