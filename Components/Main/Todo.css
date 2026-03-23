@@ -1,3 +1,104 @@
-.hide{
-    display: none;
+/* Container geral */
+#tarefas {
+    background-color: rgb(48, 48, 48);
+    max-width: 31.25rem;
+    margin: 2.5rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: sans-serif;
+}
+
+#tarefas h2{
+    text-align: center;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid white;
+}
+
+/* Input */
+input {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border: 0.125rem solid #e0e0e0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #1a7b99;
+}
+
+/* Botão adicionar */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.625rem;
+    background-color: #1c13ce;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    transition: 0.5s;
+    background-color: #10b880;
+}
+
+/* Lista */
+ul {
+    margin-top: 1.875rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+/* Item */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 1rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Botão remover */
+li button {
+    width: auto;
+    margin: 0;
+    padding: 0.375rem 0.75rem;
+    background-color: transparent;
+    color: #ff4d4d;
+    border: 0.125rem solid #ff4d4d;
+    border-radius: 0.375rem;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+li button:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* de: */
+li.completa {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* para: */
+span.completa {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
