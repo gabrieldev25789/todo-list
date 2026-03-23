@@ -13,38 +13,51 @@ const [erro, setErro] = useState("")
     if(!valor){ 
       setErro("Adicione uma tarefa")
       return 
-    } else{
-      setErro("")
     }
 
-    setTarefa([...tarefa, valor])
+    setErro("")
+    setTarefa([...tarefa, { texto: valor, completa: false }])
 
-    console.log(tarefa)
     setValor("")
     inputRef.current.focus()
   }
 
  function removerTarefa(index) {
-  setTarefa(tarefa.filter((_, i) => i !== index))
+    setTarefa(tarefa.filter((_, i) => i !== index))
 }
 
-  return (
-    <>
+  function completarTarefa(index) {
+    setTarefa(tarefa.map((item, i) => 
+    i === index ? { ...item, completa: !item.completa } : item
+  ))
+}
+
+return (
+  <>
     <div id="tarefas">
       <h2>Todo-list</h2>
-      <input 
-      type="text" 
-      placeholder="adicione tarefa"
-      value={valor}
-      ref={inputRef}
-      onChange={(e)=> setValor(e.target.value)}/>
 
-      <button onClick={enviarTarefa}>Adicionar tarefa</button>
+      <input 
+        type="text" 
+        placeholder="adicione tarefa"
+        value={valor}
+        ref={inputRef}
+        onChange={(e)=> setValor(e.target.value)}
+      />
+
+      <button onClick={enviarTarefa}>
+        Adicionar tarefa
+      </button>
        
       <ul>
         {tarefa.map((tarefa, index) => (
           <li key={index}>
-            {tarefa}
+            <span className={tarefa.completa ? "completa" : ""}>
+              {tarefa.texto}
+            </span>
+            <button onClick={() => completarTarefa(index)}>
+              Completar
+            </button>
             <button onClick={() => removerTarefa(index)}>
               remover
             </button>
@@ -52,10 +65,8 @@ const [erro, setErro] = useState("")
         ))}
       </ul> 
     </div>
-      {erro && <p>{erro}</p>} 
-    </>
-  )
+    {erro && <p>{erro}</p>} 
+  </>
+)
 }
-
-
 export default Todo
