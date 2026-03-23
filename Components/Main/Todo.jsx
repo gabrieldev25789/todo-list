@@ -56,7 +56,7 @@ return (
               {tarefa.texto}
             </span>
             <button onClick={() => completarTarefa(index)}>
-              Completar
+              {tarefa.completa ? "Desfazer" : "Completar"}
             </button>
             <button onClick={() => removerTarefa(index)}>
               remover
