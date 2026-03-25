@@ -15,6 +15,15 @@
     border-bottom: 2px solid white;
 }
 
+h3{
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 2rem auto;
+    width: 50vh;
+    border-bottom: 2px solid white;
+    padding-bottom: 0.5rem;
+}
+
 /* Input */
 input {
     width: 100%;
@@ -95,6 +104,7 @@ li button:hover {
 li.completa {
   text-decoration: line-through;
   opacity: 0.5;
+
 }
 
 /* para: */
@@ -105,4 +115,8 @@ span.completa {
 
 .priordd{
     background-color: green;
+}
+
+.hide{
+    display: none;
 }
