@@ -17,15 +17,15 @@ const [tarefaRemovida, setTarefaRemovida] = useState("")
     }
 
     setErro("")
-    setTarefa([...tarefa, { texto: valor, completa: false, prioridade: false }])
+    setTarefa([...tarefa, {id: Date.now(), texto: valor, completa: false, prioridade: false }])
 
     setValor("")
     inputRef.current.focus()
   }
 
   
-function removerTarefa(index) {
-  setTarefa(tarefa.filter((_, i) => i !== index))
+function removerTarefa(id) {
+  setTarefa(tarefa.filter((_, i) => i !== id))
   
   setTarefaRemovida("Tarefa removida!")
 
@@ -34,16 +34,23 @@ function removerTarefa(index) {
   }, 2000)
 }
 
-  function completarTarefa(index) {
-    setTarefa(tarefa.map((item, i) => 
-    i === index ? { ...item, completa: !item.completa, } : item
+  function completarTarefa(id) {
+    setTarefa(tarefa.map((item) => 
+    item.id === id ? { ...item, completa: !item.completa, } : item
   ))
 }
 
-function addPrioridade(index){
-  setTarefa(tarefa.map((item, i) => 
-    i === index ? { ...item, prioridade: !item.prioridade, } : item
-  ))
+function addPrioridade(id) {
+  const novaLista = tarefa.map((item) =>
+    item.id === id ? { ...item, prioridade: !item.prioridade } : item
+  )
+
+  const ordenada = [
+    ...novaLista.filter(item => item.prioridade),
+    ...novaLista.filter(item => !item.prioridade)
+  ]
+
+  setTarefa(ordenada)
 }
 
 return (
@@ -64,19 +71,19 @@ return (
       </button>
        
       <ul>
-        {tarefa.map((tarefa, index) => (
-      <li key={index} className={tarefa.prioridade ? "priordd" : ""}>
+        {tarefa.map((tarefa) => (
+      <li key={tarefa.id} className={tarefa.prioridade ? "priordd" : ""}>
           <span className={tarefa.completa ? "completa" : ""}>
             {tarefa.texto}
           </span>
-            <button onClick={() => completarTarefa(index)}>
+            <button onClick={() => completarTarefa(tarefa.id)}>
               {tarefa.completa ? "Desfazer" : "Completar"}
             </button>
-            <button onClick={() => removerTarefa(index)}>
+            <button onClick={() => removerTarefa(tarefa.id)}>
               remover
             </button>
             <button 
-            onClick={() => addPrioridade(index)}>
+            onClick={() => addPrioridade(tarefa.id)}>
               {tarefa.prioridade ? "Remover prioridade" : "Adicionar como prioridade"}
             </button>
         </li>
