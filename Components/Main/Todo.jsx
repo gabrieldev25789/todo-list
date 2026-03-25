@@ -16,19 +16,25 @@ const [erro, setErro] = useState("")
     }
 
     setErro("")
-    setTarefa([...tarefa, { texto: valor, completa: false }])
+    setTarefa([...tarefa, { texto: valor, completa: false, prioridade: false }])
 
     setValor("")
     inputRef.current.focus()
   }
 
- function removerTarefa(index) {
+  function removerTarefa(index) {
     setTarefa(tarefa.filter((_, i) => i !== index))
 }
 
   function completarTarefa(index) {
     setTarefa(tarefa.map((item, i) => 
-    i === index ? { ...item, completa: !item.completa } : item
+    i === index ? { ...item, completa: !item.completa, } : item
+  ))
+}
+
+function addPrioridade(index){
+  setTarefa(tarefa.map((item, i) => 
+    i === index ? { ...item, prioridade: !item.prioridade, } : item
   ))
 }
 
@@ -51,17 +57,21 @@ return (
        
       <ul>
         {tarefa.map((tarefa, index) => (
-          <li key={index}>
-            <span className={tarefa.completa ? "completa" : ""}>
-              {tarefa.texto}
-            </span>
+      <li key={index} className={tarefa.prioridade ? "priordd" : ""}>
+          <span className={tarefa.completa ? "completa" : ""}>
+            {tarefa.texto}
+          </span>
             <button onClick={() => completarTarefa(index)}>
               {tarefa.completa ? "Desfazer" : "Completar"}
             </button>
             <button onClick={() => removerTarefa(index)}>
               remover
             </button>
-          </li>
+            <button 
+            onClick={() => addPrioridade(index)}>
+              Adicionar como prioridade
+            </button>
+        </li>
         ))}
       </ul> 
     </div>
