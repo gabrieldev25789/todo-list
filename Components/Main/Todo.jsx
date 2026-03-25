@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef, useState} from "react"
 import "./Todo.css"
  
 function Todo(){
@@ -6,6 +6,7 @@ function Todo(){
 const [tarefa, setTarefa] = useState([])
 const [valor, setValor] = useState("")
 const [erro, setErro] = useState("")
+const [tarefaRemovida, setTarefaRemovida] = useState("")
 
   const inputRef = useRef(null)
 
@@ -22,8 +23,15 @@ const [erro, setErro] = useState("")
     inputRef.current.focus()
   }
 
-  function removerTarefa(index) {
-    setTarefa(tarefa.filter((_, i) => i !== index))
+  
+function removerTarefa(index) {
+  setTarefa(tarefa.filter((_, i) => i !== index))
+  
+  setTarefaRemovida("Tarefa removida!")
+
+  setTimeout(() => {
+    setTarefaRemovida("")
+  }, 2000)
 }
 
   function completarTarefa(index) {
@@ -40,9 +48,9 @@ function addPrioridade(index){
 
 return (
   <>
+  <h3 className={tarefaRemovida ? "" : "hide"}>{tarefaRemovida}</h3>
     <div id="tarefas">
       <h2>Todo-list</h2>
-
       <input 
         type="text" 
         placeholder="adicione tarefa"
@@ -69,7 +77,7 @@ return (
             </button>
             <button 
             onClick={() => addPrioridade(index)}>
-              Adicionar como prioridade
+              {tarefa.prioridade ? "Remover prioridade" : "Adicionar como prioridade"}
             </button>
         </li>
         ))}
